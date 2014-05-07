@@ -3,6 +3,7 @@
     $.existsN = function(nabir) {
         return nabir.length > 0 && nabir instanceof jQuery;
     };
+    var aC = 'tab-active';
     var methods = {
         init: function(options) {
             var $this = this;
@@ -17,9 +18,8 @@
                             data = ul.data(),
                             effectOn = data.effectOn || settings.effectOn,
                             effectOff = data.effectOff || settings.effectOff,
-                            aC = data.activeClass || settings.activeClass,
-                            durationOn = +(data.durationOn != undefined ? data.durationOn.toString() : data.durationOn || settings.durationOn != undefined ? settings.durationOn.toString() : settings.durationOn),
-                            durationOff = +(data.durationOff != undefined ? data.durationOff.toString() : data.durationOff || settings.durationOff != undefined ? settings.durationOff.toString() : settings.durationOff),
+                            durationOn = +(data.durationOn !== undefined ? data.durationOn.toString() : data.durationOn || settings.durationOn !== undefined ? settings.durationOn.toString() : settings.durationOn),
+                            durationOff = +(data.durationOff !== undefined ? data.durationOff.toString() : data.durationOff || settings.durationOff !== undefined ? settings.durationOff.toString() : settings.durationOff),
                             toggle = data.toggle !== undefined,
                             elChange = data.elchange,
                             cookie = data.cookie;
@@ -178,15 +178,42 @@
                         methods._start(aC);
                 });
                 wnd.off('hashchange.' + $.tabs.nS).on('hashchange.' + $.tabs.nS, function(e) {
+                    var curHash = methods.curHash;
+                    var curTop = methods.curTop;
+                    methods.curHash = location.hash;
+                    methods.curTop = wnd.scrollTop();
                     e.preventDefault();
                     $.map(location.hash.split('#'), function(n, i) {
                         if (n !== '') {
                             var el = $('[data-href="#' + n + '"], [href="#' + n + '"]');
-                            if (!$.existsN(el.closest('[data-toggle]')))
-                                if (!el.parent().hasClass(aC))
-                                    el.trigger('click.' + $.tabs.nS);
+                            if (!$.existsN(el.closest('[data-toggle]')) && !el.parent().hasClass(aC))
+                                methods.show.call(el);
                         }
                     });
+                    if (curHash) {
+                        var curHashArr = curHash.split('#'),
+                                curHashArr2 = methods.curHash.split('#');
+                        if (curHashArr.length !== curHashArr2.length && curHashArr.length !== 0 && curHashArr2.length !== 0) {
+                            $.map([].concat(curHashArr), function(n, i) {
+                                $.map([].concat(curHashArr2), function(m, j) {
+                                    if (n === m) {
+                                        curHashArr2.splice(j, 1);
+                                        curHashArr.splice(j, 1);
+                                    }
+                                });
+                            });
+                            $.map(methods._regRefs, function(n, i) {
+                                if ($.inArray('#' + curHashArr[0], n) !== -1 && !$.existsN(methods._refs[i].first().closest('[data-toggle]')))
+                                    methods.show.call(methods._refs[i].first());
+                            });
+                        }
+                    }
+                    if (curTop && curTop !== methods.curTop)
+                        setTimeout(function() {
+                            $('html, body').scrollTop(curTop);
+                        }, 10);
+                }).off('scroll.' + $.tabs.nS).on('scroll.' + $.tabs.nS, function(e) {
+                    methods.curTop = wnd.scrollTop();
                 });
             }
             return $this;
@@ -297,8 +324,7 @@
             effectOn: 'show',
             effectOff: 'hide',
             durationOn: 0,
-            durationOff: 0,
-            activeClass: 'tab-active'
+            durationOff: 0
         };
         this.setParameters = function(options) {
             $.extend(this.dP, options);
