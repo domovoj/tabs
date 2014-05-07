@@ -52,9 +52,8 @@
                                 $thisSel = $this.data('selector'),
                                 resB = true;
                         $this.data('start', true);
-                        if (settings.before) {
+                        if (settings.before)
                             resB = settings.before($this, $thisAO.add('[data-id=' + $thisA + ']'), condStart);
-                        }
 
                         if (resB !== false && !$this.hasClass('tab-disabled') && !$this.is(':disabled')) {
                             function _tabsDivT(callback) {
@@ -64,7 +63,7 @@
 
                                 function _after() {
                                     if (settings.after)
-                                        settings.after($this, $thisAO.add('[data-id=' + $thisA + ']'));
+                                        settings.after($this, $thisAO.add('[data-id=' + $thisA + ']'), resB);
                                     if (callback)
                                         callback();
                                 }

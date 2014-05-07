@@ -496,10 +496,11 @@
             $('.nav-tabs').tabs();
             $('.nav-tabs-callback').tabs({
                 before: function(el, div, start) {
+                    console.log(arguments)
                     if (!start)
                         return confirm('do you want?');
                 },
-                after: function() {
+                after: function(el, div, res) {
                     console.log(arguments)
 
                     alert('Do after!');
