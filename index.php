@@ -4,17 +4,19 @@
         <title>TODO supply a title</title>
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="bootstrap-theme.css"/>
         <style>
             *{margin: 0;padding: 0;}
             body{padding: 10px;}
             ul{list-style: none;}
-            .tabs{float: left;border-right: 1px solid grey;}
-            .tabs > li{float: left;border: 1px solid grey;border-right: 0;}
-            .tabs > li > *{padding: 5px 15px;display: block;}
-            .tabs > li.tab-active > button{background: #fff;}
-            .tabs > li.tab-active > a{background: #eee;}
-            .frame-tabs-ref{border: 1px solid grey;margin-bottom: 40px;clear: left;}
-            .frame-tabs-ref > div, [data-id]{display: none;position: relative;}
+            .nav-tabs{float: left;border-right: 1px solid grey;margin-bottom: -1px;}
+            .nav-tabs > li{float: left;border: 1px solid grey;border-right: 0;}
+            .nav-tabs > li > *{padding: 5px 15px;display: block;}
+            .nav-tabs > li.tab-active > button{background: #fff;}
+            .nav-tabs > li.tab-active > a{background: #eee;}
+            .frame-nav-tabs-ref{border: 1px solid grey;margin-bottom: 40px;clear: left;}
+            .frame-nav-tabs-ref > div, [data-id]{display: none;position: relative;}
 
             .firstClass #firstClass{display: block;}
             .secondClass #secondClass{display: block;}
@@ -26,28 +28,28 @@
 
             .preloader{background-color: rgba(255,255,255,.5);position: absolute;left: 0;top: 0;width: 100%;height: 100%;z-index: 1;}
 
-            .frame-tabs-ref[class*="Class"] div{height: 50px;display: block;}
-            .frame-tabs-ref[class*="first"] div{background-color: red;}
-            .frame-tabs-ref[class*="second"] div{background-color: green;}
-            .frame-tabs-ref[class*="third"] div{background-color: blue;}
+            .frame-nav-tabs-ref[class*="Class"] div{height: 50px;display: block;}
+            .frame-nav-tabs-ref[class*="first"] div{background-color: red;}
+            .frame-nav-tabs-ref[class*="second"] div{background-color: green;}
+            .frame-nav-tabs-ref[class*="third"] div{background-color: blue;}
         </style>
         <script src="jquery.js"></script>
         <script src="tabs.js"></script>
     </head>
     <body>
-        <h1>Simple Tabs</h1>
-        <ul class="tabs simple-tabs">
+        <h3>Simple Tabs</h3>
+        <ul class="nav-tabs simple-nav-tabs">
             <li>
-                <button data-href="#firstST">firstST</button>
+                <button class="btn" data-href="#firstST">firstST</button>
             </li>
             <li>
-                <button data-href="#secondST">secondST</button>
+                <button class="btn" data-href="#secondST">secondST</button>
             </li>
             <li>
-                <button data-href="#thirdST">thirdST</button>
+                <button class="btn" data-href="#thirdST">thirdST</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstST">
                 firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST firstST 
             </div>
@@ -59,19 +61,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Active Tab</h1>
-        <ul class="tabs active-tabs">
+        <h3>Active Tab</h3>
+        <ul class="nav-tabs active-nav-tabs">
             <li>
-                <button data-href="#firstAT">firstAT</button>
+                <button class="btn" data-href="#firstAT">firstAT</button>
             </li>
-            <li class="active">
-                <button data-href="#secondAT">secondAT</button>
+            <li class="tab-active">
+                <button class="btn" data-href="#secondAT">secondAT</button>
             </li>
             <li>
-                <button data-href="#thirdAT">thirdAT</button>
+                <button class="btn" data-href="#thirdAT">thirdAT</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstAT">
                 firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT firstAT 
             </div>
@@ -83,19 +85,19 @@
             </div>
         </div>        
         <!--------------------->
-        <h1>Cookie Tab</h1>
-        <ul class="tabs cookie-tabs" data-cookie="cookieTab">
+        <h3>Cookie Tab</h3>
+        <ul class="nav-tabs cookie-nav-tabs" data-cookie="cookieTab">
             <li>
-                <button data-href="#firstCT">firstCT</button>
+                <button class="btn" data-href="#firstCT">firstCT</button>
             </li>
             <li>
-                <button data-href="#secondCT">secondCT</button>
+                <button class="btn" data-href="#secondCT">secondCT</button>
             </li>
             <li>
-                <button data-href="#thirdCT">thirdCT</button>
+                <button class="btn" data-href="#thirdCT">thirdCT</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstCT">
                 firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT firstСT 
             </div>
@@ -107,8 +109,8 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Hash Tab</h1>
-        <ul class="tabs hash-tabs">
+        <h3>Hash Tab</h3>
+        <ul class="nav-tabs hash-nav-tabs">
             <li>
                 <a href="#firstHT">firstHT</a>
             </li>
@@ -119,7 +121,7 @@
                 <a href="#thirdHT">thirdHT</a>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstHT">
                 firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT 
             </div>
@@ -131,19 +133,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Tabs toogles</h1>
-        <ul class="tabs toggle-tabs" data-toggle>
+        <h3>Tabs toogles</h3>
+        <ul class="nav-tabs toggle-nav-tabs" data-toggle>
             <li>
-                <button data-href="#firstToggle">firstToggle</button>
+                <button class="btn" data-href="#firstToggle">firstToggle</button>
             </li>
             <li>
-                <button data-href="#secondToggle">secondToggle</button>
+                <button class="btn" data-href="#secondToggle">secondToggle</button>
             </li>
             <li>
-                <button data-href="#thirdToggle">thirdToggle</button>
+                <button class="btn" data-href="#thirdToggle">thirdToggle</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstToggle">
                 firstToggle firstToggle firstToggle firstToggle firstToggle firstToggle firstToggle firstToggle firstToggle firstToggle firstToggle firstToggle 
             </div>
@@ -155,19 +157,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Tabs toogles with non active on start</h1>
-        <ul class="tabs toggle-tabs" data-toggle>
+        <h3>Tabs toogles with non active on start</h3>
+        <ul class="nav-tabs toggle-nav-tabs" data-toggle>
             <li>
-                <button data-href="#firstToggleNA" data-non-start>firstToggleNA</button>
+                <button class="btn" data-href="#firstToggleNA" data-non-start>firstToggleNA</button>
             </li>
             <li>
-                <button data-href="#secondToggleNA">secondToggleNA</button>
+                <button class="btn" data-href="#secondToggleNA">secondToggleNA</button>
             </li>
             <li>
-                <button data-href="#thirdToggleNA">thirdToggleNA</button>
+                <button class="btn" data-href="#thirdToggleNA">thirdToggleNA</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstToggleNA">
                 firstToggleNA firstToggleNA firstToggleNA firstToggleNA firstToggleNA firstToggleNA firstToggleNA firstToggleNA firstToggleNA firstToggleNA 
             </div>
@@ -179,19 +181,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Tabs toogles with cookie</h1>
-        <ul class="tabs toggle-tabs-cookie" data-cookie="toggle" data-toggle>
+        <h3>Tabs toogles with cookie</h3>
+        <ul class="nav-tabs toggle-nav-tabs-cookie" data-cookie="toggle" data-toggle>
             <li>
-                <button data-href="#firstToggleCT">firstToggleCT</button>
+                <button class="btn" data-href="#firstToggleCT">firstToggleCT</button>
             </li>
             <li>
-                <button data-href="#secondToggleCT">secondToggleCT</button>
+                <button class="btn" data-href="#secondToggleCT">secondToggleCT</button>
             </li>
             <li>
-                <button data-href="#thirdToggleCT">thirdToggleCT</button>
+                <button class="btn" data-href="#thirdToggleCT">thirdToggleCT</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstToggleCT">
                 firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT 
             </div>
@@ -203,8 +205,8 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Tabs toogles with hash</h1>
-        <ul class="tabs toggle-tabs-hash" data-toggle>
+        <h3>Tabs toogles with hash</h3>
+        <ul class="nav-tabs toggle-nav-tabs-hash" data-toggle>
             <li>
                 <a href="#firstToggleTH">firstToggleTH</a>
             </li>
@@ -215,7 +217,7 @@
                 <a href="#thirdToggleTH">thirdToggleTH</a>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstToggleTH">
                 firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT firstToggleCT 
             </div>
@@ -227,70 +229,70 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Toggle class tab</h1>
-        <ul class="tabs toggles-class-tabs" data-elchange="#chageClass">
+        <h3>Toggle class tab</h3>
+        <ul class="nav-tabs toggles-class-nav-tabs" data-elchange="#chageClass">
             <li>
-                <button data-href="#firstClass">firstClass</button>
+                <button class="btn" data-href="#firstClass">firstClass</button>
             </li>
             <li>
-                <button data-href="#secondClass">secondClass</button>
+                <button class="btn" data-href="#secondClass">secondClass</button>
             </li>
             <li>
-                <button data-href="#thirdClass">thirdClass</button>
+                <button class="btn" data-href="#thirdClass">thirdClass</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref" id="chageClass">
+        <div class="frame-nav-tabs-ref" id="chageClass">
             <div></div>
         </div>
         <!--------------------->
-        <h1>Toggle class tab with cookie</h1>
-        <ul class="tabs toggles-class-cookie-tabs" data-elchange="#chageClass2" data-cookie="chageClass2">
+        <h3>Toggle class tab with cookie</h3>
+        <ul class="nav-tabs toggles-class-cookie-nav-tabs" data-elchange="#chageClass2" data-cookie="chageClass2">
             <li>
-                <button data-href="#firstClassCookie">firstClassCookie</button>
+                <button class="btn" data-href="#firstClassCookie">firstClassCookie</button>
             </li>
             <li>
-                <button data-href="#secondClassCookie">secondClassCookie</button>
+                <button class="btn" data-href="#secondClassCookie">secondClassCookie</button>
             </li>
             <li>
-                <button data-href="#thirdClassCookie">thirdClassCookie</button>
+                <button class="btn" data-href="#thirdClassCookie">thirdClassCookie</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref" id="chageClass2">
+        <div class="frame-nav-tabs-ref" id="chageClass2">
             <div></div>
         </div>
         <!--------------------->
-        <h1>Toggle class tab and cookie and toogle</h1>
-        <ul class="tabs toggles-class-tabs" data-elchange="#chageClass3" data-toggle data-cookie="chageClass3">
+        <h3>Toggle class tab and cookie and toogle</h3>
+        <ul class="nav-tabs toggles-class-nav-tabs" data-elchange="#chageClass3" data-toggle data-cookie="chageClass3">
             <li>
-                <button data-href="#firstClassFULL">firstClassFULL</button>
+                <button class="btn" data-href="#firstClassFULL">firstClassFULL</button>
             </li>
             <li>
-                <button data-href="#secondClassFULL">secondClassFULL</button>
+                <button class="btn" data-href="#secondClassFULL">secondClassFULL</button>
             </li>
             <li>
-                <button data-href="#thirdClassFULL">thirdClassFULL</button>
+                <button class="btn" data-href="#thirdClassFULL">thirdClassFULL</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref" id="chageClass3">
+        <div class="frame-nav-tabs-ref" id="chageClass3">
             <div></div>
         </div>
         <!--------------------->
-        <h1>Addings blocks</h1>
-        <ul class="tabs adding-tabs">
+        <h3>Addings blocks</h3>
+        <ul class="nav-tabs adding-nav-tabs">
             <li>
-                <button data-href="#firstAB">firstAB</button>
+                <button class="btn" data-href="#firstAB">firstAB</button>
             </li>
             <li>
-                <button data-href="#secondAB">secondAB</button>
+                <button class="btn" data-href="#secondAB">secondAB</button>
             </li>
             <li>
-                <button data-href="#thirdAB">thirdAB</button>
+                <button class="btn" data-href="#thirdAB">thirdAB</button>
             </li>
         </ul>
         <div data-id="#firstAB" style="clear: left;">
             firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 firstAB2 
         </div>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstAB">
                 firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB firstAB 
             </div>
@@ -305,19 +307,19 @@
             firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 firstAB3 
         </div>
         <!--------------------->
-        <h1>Load content Tab</h1>
-        <ul class="tabs load-tabs">
+        <h3>Load content Tab</h3>
+        <ul class="nav-tabs load-nav-tabs">
             <li>
-                <button data-href="#firstLC" data-source="upload.php" data-data='{"id": 1}'>firstLC</button>
+                <button class="btn" data-href="#firstLC" data-source="upload.php" data-data='{"id": 1}'>firstLC</button>
             </li>
             <li>
-                <button data-href="#secondLC" data-source="upload.php" data-data='{"id": 2}'>secondLC</button>
+                <button class="btn" data-href="#secondLC" data-source="upload.php" data-data='{"id": 2}'>secondLC</button>
             </li>
             <li>
-                <button data-href="#thirdLC" data-source="upload.php" data-data='{"id": 3}'>thirdLC</button>
+                <button class="btn" data-href="#thirdLC" data-source="upload.php" data-data='{"id": 3}'>thirdLC</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstLC">
 
             </div>
@@ -329,19 +331,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Load content Tab into check selector</h1>
-        <ul class="tabs load-tabs-selector">
+        <h3>Load content Tab into check selector</h3>
+        <ul class="nav-tabs load-nav-tabs-selector">
             <li>
-                <button data-href="#firstLCS" data-source="upload.php" data-data='{"id": 1}' data-selector=".inside">firstLCS</button>
+                <button class="btn" data-href="#firstLCS" data-source="upload.php" data-data='{"id": 1}' data-selector=".inside">firstLCS</button>
             </li>
             <li>
-                <button data-href="#secondLCS" data-source="upload.php" data-data='{"id": 2}' data-selector=".inside">secondLCS</button>
+                <button class="btn" data-href="#secondLCS" data-source="upload.php" data-data='{"id": 2}' data-selector=".inside">secondLCS</button>
             </li>
             <li>
-                <button data-href="#thirdLCS" data-source="upload.php" data-data='{"id": 3}' data-selector=".inside">thirdLCS</button>
+                <button class="btn" data-href="#thirdLCS" data-source="upload.php" data-data='{"id": 3}' data-selector=".inside">thirdLCS</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstLCS">
                 this content was
                 <div class="inside"></div>
@@ -356,19 +358,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Load content Tab use before and after load</h1>
-        <ul class="tabs load-tabs-callback">
+        <h3>Load content Tab use before and after load</h3>
+        <ul class="nav-tabs load-nav-tabs-callback">
             <li>
-                <button data-href="#firstLCC" data-source="upload.php" data-data='{"id": 1}'>firstLCС</button>
+                <button class="btn" data-href="#firstLCC" data-source="upload.php" data-data='{"id": 1}'>firstLCС</button>
             </li>
             <li>
-                <button data-href="#secondLCC" data-source="upload.php" data-data='{"id": 2}'>secondLCС</button>
+                <button class="btn" data-href="#secondLCC" data-source="upload.php" data-data='{"id": 2}'>secondLCС</button>
             </li>
             <li>
-                <button data-href="#thirdLCC" data-source="upload.php" data-data='{"id": 3}'>thirdLCС</button>
+                <button class="btn" data-href="#thirdLCC" data-source="upload.php" data-data='{"id": 3}'>thirdLCС</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstLCC">
 
             </div>
@@ -380,19 +382,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Load content Tab always</h1>
-        <ul class="tabs load-tabs-always">
+        <h3>Load content Tab always</h3>
+        <ul class="nav-tabs load-nav-tabs-always">
             <li>
-                <button data-href="#firstLCA" data-source="upload.php" data-data='{"id": 1}'>firstLCA</button>
+                <button class="btn" data-href="#firstLCA" data-source="upload.php" data-data='{"id": 1}'>firstLCA</button>
             </li>
             <li>
-                <button data-href="#secondLCA" data-source="upload.php" data-data='{"id": 2}'>secondLCA</button>
+                <button class="btn" data-href="#secondLCA" data-source="upload.php" data-data='{"id": 2}'>secondLCA</button>
             </li>
             <li>
-                <button data-href="#thirdLCA" data-source="upload.php" data-data='{"id": 3}'>thirdLCA</button>
+                <button class="btn" data-href="#thirdLCA" data-source="upload.php" data-data='{"id": 3}'>thirdLCA</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstLCA">
 
             </div>
@@ -404,19 +406,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Tab callbacks</h1>
-        <ul class="tabs tabs-callback">
+        <h3>Tab callbacks</h3>
+        <ul class="nav-tabs nav-tabs-callback">
             <li>
-                <button data-href="#firstCBT">firstCBT</button>
+                <button class="btn" data-href="#firstCBT">firstCBT</button>
             </li>
             <li>
-                <button data-href="#secondCBT">secondCBT</button>
+                <button class="btn" data-href="#secondCBT">secondCBT</button>
             </li>
             <li>
-                <button data-href="#thirdCBT">thirdCBT</button>
+                <button class="btn" data-href="#thirdCBT">thirdCBT</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstCBT">
                 firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT firstCBT
             </div>
@@ -428,19 +430,19 @@
             </div>
         </div>
         <!--------------------->
-        <h1>Tab Effect</h1>
-        <ul class="tabs tabs-effect">
+        <h3>Tab Effect</h3>
+        <ul class="nav-tabs nav-tabs-effect">
             <li>
-                <button data-href="#firstET">firstCBT</button>
+                <button class="btn" data-href="#firstET">firstCBT</button>
             </li>
             <li>
-                <button data-href="#secondET">secondCBT</button>
+                <button class="btn" data-href="#secondET">secondCBT</button>
             </li>
             <li>
-                <button data-href="#thirdET">thirdCBT</button>
+                <button class="btn" data-href="#thirdET">thirdCBT</button>
             </li>
         </ul>
-        <div class="frame-tabs-ref">
+        <div class="frame-nav-tabs-ref">
             <div id="firstET">
                 firstET <br/>
                 firstET <br/>
@@ -479,20 +481,20 @@
         <?php
         ?>
         <script type="text/javascript">
-            $('.load-tabs-callback, .load-tabs-always').on('tabs.beforeload', function(e) {
+            $('.load-nav-tabs-callback, .load-nav-tabs-always').on('tabs.beforeload', function(e) {
                 if (e.options.divOld)
                     e.options.divOld.append('<div class="preloader"></div>');
             }).on('tabs.afterload', function(e) {
                 if (e.options.divOld)
                     e.options.divOld.find('.preloader').remove();
             });
-            $('.load-tabs-always').on('tabs.beforeload', function(e) {
+            $('.load-nav-tabs-always').on('tabs.beforeload', function(e) {
                 if (e.options.elOld)
                     e.options.elOld.removeClass('tab-visited');
             });
 
-            $('.tabs').tabs();
-            $('.tabs-callback').tabs({
+            $('.nav-tabs').tabs();
+            $('.nav-tabs-callback').tabs({
                 before: function(el, div, start) {
                     if (!start)
                         return confirm('do you want?');
@@ -503,7 +505,7 @@
                     alert('Do after!');
                 }
             });
-            $('.tabs-effect').tabs({
+            $('.nav-tabs-effect').tabs({
                 before: function(btn, div, start) {
                     console.log(start)
                     div.show();

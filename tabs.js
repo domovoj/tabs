@@ -176,7 +176,7 @@
                     });
 
                     if (thisL - 1 === ind)
-                        methods._start();
+                        methods._start(aC);
                 });
                 wnd.off('hashchange.' + $.tabs.nS).on('hashchange.' + $.tabs.nS, function(e) {
                     e.preventDefault();
@@ -236,7 +236,7 @@
         _regRefs: [],
         _attrOrdata: [],
         _cookie: [],
-        _start: function() {
+        _start: function(aC) {
             var hashs = [];
             $.map(methods._refs, function(n, i) {
                 var $this = $.existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] !== undefined && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
