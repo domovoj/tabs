@@ -481,16 +481,16 @@
         <?php
         ?>
         <script type="text/javascript">
-            $('.load-nav-tabs-callback, .load-nav-tabs-always').on('tabs.beforeload', function(e) {
-                if (e.options.divOld)
-                    e.options.divOld.append('<div class="preloader"></div>');
-            }).on('tabs.afterload', function(e) {
-                if (e.options.divOld)
-                    e.options.divOld.find('.preloader').remove();
+            $('.load-nav-tabs-callback, .load-nav-tabs-always').on('tabs.beforeload', function(e, options) {
+                if (options.divOld)
+                    options.divOld.append('<div class="preloader"></div>');
+            }).on('tabs.afterload', function(e, options) {
+                if (options.divOld)
+                    options.divOld.find('.preloader').remove();
             });
-            $('.load-nav-tabs-always').on('tabs.beforeload', function(e) {
-                if (e.options.elOld)
-                    e.options.elOld.removeClass('tab-visited');
+            $('.load-nav-tabs-always').on('tabs.beforeload', function(e, options) {
+                if (options.elOld)
+                    options.elOld.removeClass('tab-visited');
             });
 
             $('.nav-tabs').tabs();

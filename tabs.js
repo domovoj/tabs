@@ -127,10 +127,7 @@
                                         options.elOld = $thisOld;
                                         options.divOld = $($thisAOld);
                                     }
-                                    ul.trigger({
-                                        type: 'tabs.beforeload',
-                                        options: options
-                                    });
+                                    ul.trigger('tabs.beforeload', options);
                                     var optAjax = {
                                         type: 'post',
                                         url: $thisS,
@@ -142,10 +139,7 @@
                                                 $thisAO.find($thisSel).html(data);
                                             else
                                                 $thisAO.html(data);
-                                            ul.trigger({
-                                                'type': 'tabs.afterload',
-                                                options: options
-                                            });
+                                            ul.trigger('tabs.afterload', options);
                                         }
                                     };
                                     if ($thisData)
@@ -331,5 +325,8 @@
         };
     };
     $.tabs = new $.tabsInit();
+    $(document).ready(function(){
+        $('[data-rel="tabs"]').tabs();
+    });
 })(jQuery, $(window));
 /*/plugin tabs end*/
