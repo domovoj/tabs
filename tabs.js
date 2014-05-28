@@ -7,31 +7,25 @@
     var methods = {
         init: function(options) {
             var $this = this;
-
             if ($.existsN($this)) {
-                var settings = $.extend({}, $.tabs.dP, options);
                 var thisL = this.length;
                 $this.each(function(ind) {
-                    var index = methods._index,
+                    var settings = $.extend({}, $.tabs.dP, options),
+                            index = methods._index,
                             ul = $(this),
                             li = ul.children(),
                             data = ul.data(),
-                            effectOn = data.effectOn || settings.effectOn,
-                            effectOff = data.effectOff || settings.effectOff,
-                            durationOn = +(data.durationOn !== undefined ? data.durationOn.toString() : data.durationOn || settings.durationOn !== undefined ? settings.durationOn.toString() : settings.durationOn),
-                            durationOff = +(data.durationOff !== undefined ? data.durationOff.toString() : data.durationOff || settings.durationOff !== undefined ? settings.durationOff.toString() : settings.durationOff),
-                            toggle = data.toggle !== undefined,
-                            elChange = data.elchange,
-                            cookie = data.cookie;
-
-                    methods._index += 1;
-                    methods._refs[index] = li.children('[href], [data-href]');
-                    methods._cookie[index] = cookie !== undefined ? cookie : null;
-                    methods._attrOrdata[index] = methods._refs[index].attr('href') ? 'attr' : 'data';
-                    methods._regRefs[index] = [];
-                    var
+                            opt = $.extend({}, settings, data),
                             tabsDiv = $([]),
                             tabsId = $([]);
+                    opt.toggle = opt.toggle !== undefined ? true : false;
+                    
+                    methods._index += 1;
+                    methods._refs[index] = li.children('[href], [data-href]');
+                    methods._cookie[index] = opt.cookie !== undefined ? opt.cookie : null;
+                    methods._attrOrdata[index] = methods._refs[index].attr('href') ? 'attr' : 'data';
+                    methods._regRefs[index] = [];
+
                     methods._refs[index].each(function() {
                         var tHref = $(this)[methods._attrOrdata[index]]('href');
                         tabsDiv = tabsDiv.add($(tHref));
@@ -54,13 +48,11 @@
                         $this.data('start', true);
                         if (settings.before)
                             resB = settings.before($this, $thisAO.add('[data-id=' + $thisA + ']'), condStart);
-
                         if (resB !== false && !$this.hasClass('tab-disabled') && !$this.is(':disabled')) {
                             function _tabsDivT(callback) {
                                 var showBlock = $thisAO.add($('[data-id=' + $thisA + ']'));
-                                showBlock = toggle && $thisAO.is(':visible') ? $([]) : showBlock;
+                                showBlock = opt.toggle && $thisAO.is(':visible') ? $([]) : showBlock;
                                 var blocks = tabsDiv.add(tabsId).not(showBlock);
-
                                 function _after() {
                                     if (settings.after)
                                         settings.after($this, $thisAO.add('[data-id=' + $thisA + ']'), resB);
@@ -69,7 +61,7 @@
                                 }
                                 function _after2() {
                                     var wLH = window.location.hash;
-                                    if (!condStart && ($thisAOld || toggle)) {
+                                    if (!condStart && ($thisAOld || opt.toggle)) {
                                         var temp = wLH,
                                                 changeHash = false;
                                         if (methods.hashsArr)
@@ -77,13 +69,11 @@
                                                 if ($.inArray('#' + n, methods._regRefs[index]) !== -1)
                                                     changeHash = true;
                                             });
-
                                         if (changeHash || methods._attrOrdata[index] === 'attr') {
                                             $.map(methods._regRefs[index], function(n, i) {
                                                 temp = temp.replace(new RegExp(n, 'ig'), '');
                                             });
-
-                                            if (toggle && !$thisAO.is(':visible')) {
+                                            if (opt.toggle && !$thisAO.is(':visible')) {
                                                 methods.changeHash(temp);
                                                 return;
                                             }
@@ -94,9 +84,9 @@
                                     }
                                 }
                                 if ($.existsN(blocks)) {
-                                    blocks.stop()[effectOff](durationOff, function() {
-                                        if (!$thisAO.is(':visible') || elChange)
-                                            showBlock[effectOn](durationOn, function() {
+                                    blocks.stop()[opt.effectOff](opt.durationOff, function() {
+                                        if (!$thisAO.is(':visible') || opt.elchange)
+                                            showBlock[opt.effectOn](opt.durationOn, function() {
                                                 _after();
                                             }).addClass(aC);
                                         _after2();
@@ -109,12 +99,12 @@
                             }
                             var activeP = $this.parent();
                             li.not(activeP).removeClass(aC);
-                            if (activeP.hasClass(aC) && toggle)
+                            if (activeP.hasClass(aC) && opt.toggle)
                                 activeP.removeClass(aC);
                             else
                                 activeP.addClass(aC);
-
-                            if (!elChange) {
+                            
+                            if (!opt.elchange) {
                                 if ($thisS && !$this.hasClass('tab-visited')) {
                                     methods._refs[index].addClass('tab-disabled').attr('disabled', 'disabled');
                                     $this.addClass('tab-visited');
@@ -151,15 +141,15 @@
                                 }
                             }
                             else {
-                                $(elChange).removeClass(methods._regRefs[index].join(' ').replace(new RegExp('#', 'g'), '')).addClass($thisA.replace('#', ''));
-                                if (toggle && !$this.parent().hasClass(aC))
-                                    $(elChange).removeClass($thisA.replace('#', ''));
+                                $(opt.elchange).removeClass(methods._regRefs[index].join(' ').replace(new RegExp('#', 'g'), '')).addClass($thisA.replace('#', ''));
+                                if (opt.toggle && !$this.parent().hasClass(aC))
+                                    $(opt.elchange).removeClass($thisA.replace('#', ''));
                                 _tabsDivT();
                             }
 
                             if (methods._cookie[index]) {
                                 methods.setCookie(methods._cookie[index], $thisA, 0, '/');
-                                if (toggle && !$this.parent().hasClass(aC))
+                                if (opt.toggle && !$this.parent().hasClass(aC))
                                     methods.setCookie(methods._cookie[index], '', 0, '/');
                             }
 
@@ -167,7 +157,6 @@
                                 $('html, body').scrollTop($this.offset().top);
                         }
                     });
-
                     if (thisL - 1 === ind)
                         methods._start(aC);
                 });
@@ -259,7 +248,7 @@
         _start: function(aC) {
             var hashs = [];
             $.map(methods._refs, function(n, i) {
-                var $this = $.existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] !== undefined && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
+                var $this = $.existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
                 hashs.push($this.data('nonStart') !== undefined ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
             });
             var hashsClone = [].concat(hashs);
@@ -325,7 +314,7 @@
         };
     };
     $.tabs = new $.tabsInit();
-    $(document).ready(function(){
+    $(document).ready(function() {
         $('[data-rel="tabs"]').tabs();
     });
 })(jQuery, $(window));

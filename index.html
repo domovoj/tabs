@@ -494,24 +494,24 @@
             $('.nav-tabs').tabs();
             $('.nav-tabs-callback').tabs({
                 before: function(el, div, start) {
-                    console.log(arguments)
+                    //console.log(arguments)
                     if (!start)
                         return confirm('do you want?');
                 },
                 after: function(el, div, res) {
-                    console.log(arguments)
+                    //console.log(arguments)
 
                     alert('Do after!');
                 }
             });
             $('.nav-tabs-effect').tabs({
                 before: function(btn, div, start) {
-                    console.log(start)
+                    //console.log(start)
                     div.show();
                     var height = div.height();
 
                     div.hide().parent().css('height', height);
-                    console.log(arguments);
+                    //console.log(arguments);
                 },
                 effectOn: 'slideDown',
                 effectOff: 'slideUp',
