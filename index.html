@@ -494,14 +494,14 @@
             $('.nav-tabs').tabs();
             $('.nav-tabs-callback').tabs({
                 before: function(el, div, start) {
-                    //console.log(arguments)
-                    if (!start)
-                        return confirm('do you want?');
+                    console.log($(this))
+//                    if (!start)
+//                        return confirm('do you want?');
                 },
                 after: function(el, div, res) {
-                    //console.log(arguments)
+                    console.log($(this))
 
-                    alert('Do after!');
+                    //alert('Do after!');
                 }
             });
             $('.nav-tabs-effect').tabs({

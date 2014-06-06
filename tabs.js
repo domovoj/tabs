@@ -47,7 +47,7 @@
                                 resB = true;
                         $this.data('start', true);
                         if (settings.before)
-                            resB = settings.before($this, $thisAO.add('[data-id=' + $thisA + ']'), condStart);
+                            resB = settings.before.call(ul, $this, $thisAO.add('[data-id=' + $thisA + ']'), condStart);
                         if (resB !== false && !$this.hasClass('tab-disabled') && !$this.is(':disabled')) {
                             function _tabsDivT(callback) {
                                 var showBlock = $thisAO.add($('[data-id=' + $thisA + ']'));
@@ -55,7 +55,7 @@
                                 var blocks = tabsDiv.add(tabsId).not(showBlock);
                                 function _after() {
                                     if (settings.after)
-                                        settings.after($this, $thisAO.add('[data-id=' + $thisA + ']'), resB);
+                                        settings.after.call(ul, $this, $thisAO.add('[data-id=' + $thisA + ']'), resB);
                                     if (callback)
                                         callback();
                                 }
