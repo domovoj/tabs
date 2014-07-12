@@ -88,7 +88,10 @@
                                         if (!$thisAO.is(':visible') || opt.elchange)
                                             showBlock[opt.effectOn](opt.durationOn, function() {
                                                 _after();
-                                            }).addClass(aC);
+                                            });
+                                        else
+                                            _after();
+                                        showBlock.addClass(aC);
                                         _after2();
                                     }).removeClass(aC);
                                 }
