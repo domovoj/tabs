@@ -240,7 +240,8 @@
         },
         changeHash: function(temp) {
             methods.top = wnd.scrollTop();
-            window.location.hash = temp;
+			if (temp)
+				window.location.hash = temp;
             $('html, body').scrollTop(methods.top);
         },
         _index: 0,
@@ -255,7 +256,7 @@
                 hashs.push($this.data('nonStart') !== undefined ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
             });
             var hashsClone = [].concat(hashs);
-            if (location.hash !== '') {
+            if (location.hash) {
                 var hashsArr = location.hash.split('#');
                 $.map(hashsArr, function(n, i) {
                     $.map(hashsClone, function(m, j) {
