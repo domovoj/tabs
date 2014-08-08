@@ -18,7 +18,7 @@
                             tabsDiv = $([]),
                             tabsId = $([]);
                     opt.toggle = opt.toggle !== undefined ? true : false;
-                    
+
                     methods._index += 1;
                     methods._refs[index] = li.children('[href], [data-href]');
                     methods._cookie[index] = opt.cookie !== undefined ? opt.cookie : null;
@@ -87,7 +87,10 @@
                                         if (!$thisAO.is(':visible') || opt.elchange)
                                             showBlock[opt.effectOn](opt.durationOn, function() {
                                                 _after();
-                                            }).addClass(opt.activeClass);
+                                            });
+                                        else
+                                            _after();
+                                        showBlock.addClass(opt.activeClass);
                                         _after2();
                                     }).removeClass(opt.activeClass);
                                 }
@@ -102,7 +105,7 @@
                                 activeP.removeClass(opt.activeClass);
                             else
                                 activeP.addClass(opt.activeClass);
-                            
+
                             if (!opt.elchange) {
                                 if ($thisS && !$this.hasClass('tab-visited')) {
                                     methods._refs[index].addClass('tab-disabled').attr('disabled', 'disabled');
@@ -236,7 +239,8 @@
         },
         changeHash: function(temp) {
             methods.top = wnd.scrollTop();
-            window.location.hash = temp;
+            if (temp)
+                window.location.hash = temp;
             $('html, body').scrollTop(methods.top);
         },
         _index: 0,
@@ -251,7 +255,7 @@
                 hashs.push($this.data('nonStart') !== undefined ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
             });
             var hashsClone = [].concat(hashs);
-            if (location.hash !== '') {
+            if (location.hash) {
                 var hashsArr = location.hash.split('#');
                 $.map(hashsArr, function(n, i) {
                     $.map(hashsClone, function(m, j) {
