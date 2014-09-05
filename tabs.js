@@ -163,10 +163,12 @@
                         methods._start(opt.activeClass);
                 });
                 wnd.off('hashchange.' + $.tabs.nS).on('hashchange.' + $.tabs.nS, function(e) {
-                    var curHash = methods.curHash;
-                    var curTop = methods.curTop;
+                    var curHash = methods.curHash,
+                            curTop = methods.curTop;
+
                     methods.curHash = location.hash;
                     methods.curTop = wnd.scrollTop();
+
                     e.preventDefault();
                     $.map(location.hash.split('#'), function(n, i) {
                         if (n !== '') {
