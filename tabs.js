@@ -19,7 +19,7 @@
                             tabsDiv = $([]),
                             tabsId = $([]);
                     opt.toggle = opt.toggle !== undefined ? true : false;
-                    
+
                     methods._index += 1;
                     methods._refs[index] = li.children('[href], [data-href]');
                     methods._cookie[index] = opt.cookie !== undefined ? opt.cookie : null;
@@ -106,7 +106,7 @@
                                 activeP.removeClass(aC);
                             else
                                 activeP.addClass(aC);
-                            
+
                             if (!opt.elchange) {
                                 if ($thisS && !$this.hasClass('tab-visited')) {
                                     methods._refs[index].addClass('tab-disabled').attr('disabled', 'disabled');
@@ -240,8 +240,8 @@
         },
         changeHash: function(temp) {
             methods.top = wnd.scrollTop();
-			if (temp)
-				window.location.hash = temp;
+            if (temp)
+                window.location.hash = temp;
             $('html, body').scrollTop(methods.top);
         },
         _index: 0,
