@@ -3,7 +3,6 @@
     $.existsN = function(nabir) {
         return nabir.length > 0 && nabir instanceof jQuery;
     };
-    var aC = 'tab-active';
     var methods = {
         init: function(options) {
             var $this = this;
@@ -37,7 +36,7 @@
                         var $this = $(this),
                                 condStart = e.start,
                                 $thisA = $this[methods._attrOrdata[index]]('href'),
-                                $thisOld = li.filter('.' + aC).children(),
+                                $thisOld = li.filter('.' + opt.activeClass).children(),
                                 $thisAOld = $thisOld[methods._attrOrdata[index]]('href'),
                                 $thisAOld = $thisAOld === $thisA ? null : $thisAOld,
                                 $thisAO = $($thisA),
@@ -91,9 +90,9 @@
                                             });
                                         else
                                             _after();
-                                        showBlock.addClass(aC);
+                                        showBlock.addClass(opt.activeClass);
                                         _after2();
-                                    }).removeClass(aC);
+                                    }).removeClass(opt.activeClass);
                                 }
                                 else {
                                     _after();
@@ -101,11 +100,11 @@
                                 }
                             }
                             var activeP = $this.parent();
-                            li.not(activeP).removeClass(aC);
-                            if (activeP.hasClass(aC) && opt.toggle)
-                                activeP.removeClass(aC);
+                            li.not(activeP).removeClass(opt.activeClass);
+                            if (activeP.hasClass(opt.activeClass) && opt.toggle)
+                                activeP.removeClass(opt.activeClass);
                             else
-                                activeP.addClass(aC);
+                                activeP.addClass(opt.activeClass);
 
                             if (!opt.elchange) {
                                 if ($thisS && !$this.hasClass('tab-visited')) {
@@ -145,14 +144,14 @@
                             }
                             else {
                                 $(opt.elchange).removeClass(methods._regRefs[index].join(' ').replace(new RegExp('#', 'g'), '')).addClass($thisA.replace('#', ''));
-                                if (opt.toggle && !$this.parent().hasClass(aC))
+                                if (opt.toggle && !$this.parent().hasClass(opt.activeClass))
                                     $(opt.elchange).removeClass($thisA.replace('#', ''));
                                 _tabsDivT();
                             }
 
                             if (methods._cookie[index]) {
                                 methods.setCookie(methods._cookie[index], $thisA, 0, '/');
-                                if (opt.toggle && !$this.parent().hasClass(aC))
+                                if (opt.toggle && !$this.parent().hasClass(opt.activeClass))
                                     methods.setCookie(methods._cookie[index], '', 0, '/');
                             }
 
@@ -161,18 +160,20 @@
                         }
                     });
                     if (thisL - 1 === ind)
-                        methods._start(aC);
+                        methods._start(opt.activeClass);
                 });
                 wnd.off('hashchange.' + $.tabs.nS).on('hashchange.' + $.tabs.nS, function(e) {
-                    var curHash = methods.curHash;
-                    var curTop = methods.curTop;
+                    var curHash = methods.curHash,
+                            curTop = methods.curTop;
+
                     methods.curHash = location.hash;
                     methods.curTop = wnd.scrollTop();
+
                     e.preventDefault();
                     $.map(location.hash.split('#'), function(n, i) {
                         if (n !== '') {
                             var el = $('[data-href="#' + n + '"], [href="#' + n + '"]');
-                            if (!$.existsN(el.closest('[data-toggle]')) && !el.parent().hasClass(aC))
+                            if (!$.existsN(el.closest('[data-toggle]')) && !el.parent().hasClass(opt.activeClass))
                                 methods.show.call(el);
                         }
                     });
@@ -308,6 +309,7 @@
             return newM;
         };
         this.dP = {
+            activeClass: 'tab-active',
             effectOn: 'show',
             effectOff: 'hide',
             durationOn: 0,
