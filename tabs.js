@@ -1,4 +1,3 @@
-/*plugin tabs*/
 (function($, wnd) {
     var aC = 'tab-active';
     $.existsN = function(nabir) {
@@ -324,4 +323,3 @@
         $('[data-rel="tabs"]').tabs();
     });
 })(jQuery, $(window));
-/*/plugin tabs end*/
