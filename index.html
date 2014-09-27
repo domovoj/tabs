@@ -37,57 +37,6 @@
         <script src="tabs.js"></script>
     </head>
     <body>
-        <h3>Hash Tab</h3>
-        <ul class="nav-tabs hash-nav-tabs">
-            <li>
-                <a href="#a1">firstHT</a>
-            </li>
-            <li>
-                <a href="#a2">secondHT</a>
-            </li>
-            <li>
-                <a href="#a3">thirdHT</a>
-            </li>
-            <li>
-                <a href="#a4">firstHT</a>
-            </li>
-            <li>
-                <a href="#a5">secondHT</a>
-            </li>
-            <li>
-                <a href="#a6">thirdHT</a>
-            </li>
-            <li>
-                <a href="#a7">firstHT</a>
-            </li>
-            <li>
-                <a href="#a8">secondHT</a>
-            </li>
-            <li>
-                <a href="#a9">thirdHT</a>
-            </li>
-            <li>
-                <a href="#a10">firstHT</a>
-            </li>
-            <li>
-                <a href="#a11">secondHT</a>
-            </li>
-            <li>
-                <a href="#a12">thirdHT</a>
-            </li>
-        </ul>
-        <div class="frame-nav-tabs-ref">
-            <div id="a1">
-                firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT firstHT 
-            </div>
-            <div id="a2">
-                secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT secondHT 
-            </div>
-            <div id="a3">
-                thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT thirdHT 
-            </div>
-        </div>
-
         <h3>Simple Tabs</h3>
         <ul class="nav-tabs simple-nav-tabs">
             <li>
@@ -185,7 +134,7 @@
         </div>
         <!--------------------->
         <h3>Tabs toogles</h3>
-        <ul class="nav-tabs toggle-nav-tabs" data-toggle>
+        <ul class="nav-tabs toggle-nav-tabs" data-toggle="true">
             <li>
                 <button class="btn" data-href="#firstToggle">firstToggle</button>
             </li>
@@ -209,9 +158,9 @@
         </div>
         <!--------------------->
         <h3>Tabs toogles with non active on start</h3>
-        <ul class="nav-tabs toggle-nav-tabs" data-toggle>
+        <ul class="nav-tabs toggle-nav-tabs" data-toggle="true">
             <li>
-                <button class="btn" data-href="#firstToggleNA" data-non-start>firstToggleNA</button>
+                <button class="btn" data-href="#firstToggleNA" data-non-start="true">firstToggleNA</button>
             </li>
             <li>
                 <button class="btn" data-href="#secondToggleNA">secondToggleNA</button>
@@ -233,7 +182,7 @@
         </div>
         <!--------------------->
         <h3>Tabs toogles with cookie</h3>
-        <ul class="nav-tabs toggle-nav-tabs-cookie" data-cookie="toggle" data-toggle>
+        <ul class="nav-tabs toggle-nav-tabs-cookie" data-cookie="toggle" data-toggle="true">
             <li>
                 <button class="btn" data-href="#firstToggleCT">firstToggleCT</button>
             </li>
@@ -257,7 +206,7 @@
         </div>
         <!--------------------->
         <h3>Tabs toogles with hash</h3>
-        <ul class="nav-tabs toggle-nav-tabs-hash" data-toggle>
+        <ul class="nav-tabs toggle-nav-tabs-hash" data-toggle="true">
             <li>
                 <a href="#firstToggleTH">firstToggleTH</a>
             </li>
@@ -313,7 +262,7 @@
         </div>
         <!--------------------->
         <h3>Toggle class tab and cookie and toogle</h3>
-        <ul class="nav-tabs toggles-class-nav-tabs" data-elchange="#chageClass3" data-toggle data-cookie="chageClass3">
+        <ul class="nav-tabs toggles-class-nav-tabs" data-elchange="#chageClass3" data-toggle="true" data-cookie="chageClass3">
             <li>
                 <button class="btn" data-href="#firstClassFULL">firstClassFULL</button>
             </li>
@@ -557,7 +506,7 @@
             });
             $('.nav-tabs-effect').tabs({
                 before: function(btn, div, start) {
-                    //console.log(start)
+                    console.log(start)
                     div.show();
                     var height = div.height();
 

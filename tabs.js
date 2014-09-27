@@ -9,19 +9,17 @@
             if ($.existsN($this)) {
                 var thisL = this.length;
                 $this.each(function(ind) {
-                    var settings = $.extend({}, $.tabs.dP, options),
-                            index = methods._index,
+                    var index = methods._index,
                             ul = $(this),
                             li = ul.children(),
                             data = ul.data(),
-                            opt = $.extend({}, settings, data),
+                            opt = $.extend({}, $.tabs.dP, options, data),
                             tabsDiv = $([]),
                             tabsId = $([]);
-                    opt.toggle = opt.toggle !== undefined ? true : false;
 
                     methods._index += 1;
                     methods._refs[index] = li.children('[href], [data-href]');
-                    methods._cookie[index] = opt.cookie !== undefined ? opt.cookie : null;
+                    methods._cookie[index] = opt.cookie ? opt.cookie : null;
                     methods._attrOrdata[index] = methods._refs[index].attr('href') ? 'attr' : 'data';
                     methods._regRefs[index] = [];
 
@@ -33,28 +31,26 @@
                     });
                     methods._refs[index].removeData('start').off('click.' + $.tabs.nS).on('click.' + $.tabs.nS, function(e) {
                         e.preventDefault();
-                        var $this = $(this),
+                        var $this = $(this).data('start', true),
                                 condStart = e.start,
                                 $thisA = $this[methods._attrOrdata[index]]('href'),
                                 $thisOld = li.filter('.' + aC).children(),
                                 $thisAOld = $thisOld[methods._attrOrdata[index]]('href'),
                                 $thisAOld = $thisAOld === $thisA ? null : $thisAOld,
                                 $thisAO = $($thisA),
-                                $thisS = $this.data('source'),
-                                $thisData = $this.data('data'),
-                                $thisSel = $this.data('selector'),
                                 resB = true;
-                        $this.data('start', true);
-                        if (settings.before)
-                            resB = settings.before.call(ul, $this, $thisAO.add('[data-id=' + $thisA + ']'), condStart);
+                        $.extend(opt, $this.data());
+
+                        if (opt.before)
+                            resB = eval(opt.before).call(ul, $this, $thisAO.add('[data-id=' + $thisA + ']'), condStart);
                         if (resB !== false && !$this.hasClass('tab-disabled') && !$this.is(':disabled')) {
                             function _tabsDivT(callback) {
                                 var showBlock = $thisAO.add($('[data-id=' + $thisA + ']'));
                                 showBlock = opt.toggle && $thisAO.is(':visible') ? $([]) : showBlock;
                                 var blocks = tabsDiv.add(tabsId).not(showBlock);
                                 function _after() {
-                                    if (settings.after)
-                                        settings.after.call(ul, $this, $thisAO.add('[data-id=' + $thisA + ']'), resB);
+                                    if (opt.after)
+                                        eval(opt.after).call(ul, $this, $thisAO.add('[data-id=' + $thisA + ']'), resB);
                                     if (callback)
                                         callback();
                                 }
@@ -64,13 +60,13 @@
                                         var temp = wLH,
                                                 changeHash = false;
                                         if (methods.hashsArr)
-                                            $.map(methods.hashsArr, function(n, i) {
+                                            $.map(methods.hashsArr, function(n) {
                                                 if ($.inArray('#' + n, methods._regRefs[index]) !== -1)
                                                     changeHash = true;
                                             });
                                         if (changeHash || methods._attrOrdata[index] === 'attr') {
                                             $.map(methods._regRefs[index], function(n) {
-                                                temp = temp.replace(new RegExp('^' + n + '$', 'ig'), '');
+                                                temp = temp.replace(new RegExp(n + '($|\b)', 'ig'), '').replace(new RegExp(n + '#', 'ig'), '#');
                                             });
                                             if (opt.toggle && !$thisAO.is(':visible')) {
                                                 methods.changeHash(temp);
@@ -83,15 +79,18 @@
                                     }
                                 }
                                 if ($.existsN(blocks)) {
+                                    var i = 0;
                                     blocks.stop()[opt.effectOff](opt.durationOff, function() {
-                                        if (!$thisAO.is(':visible') || opt.elchange)
-                                            showBlock[opt.effectOn](opt.durationOn, function() {
+                                        if (++i === blocks.length) {
+                                            if (!$thisAO.is(':visible') || opt.elchange)
+                                                showBlock[opt.effectOn](opt.durationOn, function() {
+                                                    _after();
+                                                });
+                                            else
                                                 _after();
-                                            });
-                                        else
-                                            _after();
-                                        showBlock.addClass(aC);
-                                        _after2();
+                                            showBlock.addClass(aC);
+                                            _after2();
+                                        }
                                     }).removeClass(aC);
                                 }
                                 else {
@@ -107,7 +106,7 @@
                                 activeP.addClass(aC);
 
                             if (!opt.elchange) {
-                                if ($thisS && !$this.hasClass('tab-visited')) {
+                                if (opt.source && !$this.hasClass('tab-visited')) {
                                     methods._refs[index].addClass('tab-disabled').attr('disabled', 'disabled');
                                     $this.addClass('tab-visited');
                                     var options = {
@@ -122,25 +121,24 @@
                                     ul.trigger('tabs.beforeload', options);
                                     var optAjax = {
                                         type: 'post',
-                                        url: $thisS,
+                                        url: opt.source,
                                         success: function(data) {
                                             _tabsDivT(function() {
                                                 methods._refs[index].removeClass('tab-disabled').removeAttr('disabled');
                                             });
-                                            if ($thisSel)
-                                                $thisAO.find($thisSel).html(data);
+                                            if (opt.selector)
+                                                $thisAO.find(opt.selector).html(data);
                                             else
                                                 $thisAO.html(data);
                                             ul.trigger('tabs.afterload', options);
                                         }
                                     };
-                                    if ($thisData)
-                                        optAjax.data = $thisData;
+                                    if (opt.data)
+                                        optAjax.data = opt.data;
                                     $.ajax(optAjax);
                                 }
-                                else {
+                                else
                                     _tabsDivT();
-                                }
                             }
                             else {
                                 $(opt.elchange).removeClass(methods._regRefs[index].join(' ').replace(/#/g, '')).addClass($thisA.replace('#', ''));
@@ -254,7 +252,7 @@
             var hashs = [];
             $.map(methods._refs, function(n, i) {
                 var $this = $.existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
-                hashs.push($this.data('nonStart') !== undefined ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
+                hashs.push($this.data('nonStart') ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
             });
             var hashsClone = [].concat(hashs);
             if (location.hash) {
@@ -312,7 +310,15 @@
             effectOn: 'show',
             effectOff: 'hide',
             durationOn: 0,
-            durationOff: 0
+            durationOff: 0,
+            cookie: null,
+            toggle: null,
+            elchange: null,
+            source: null,
+            data: null,
+            selector: null,
+            before: $.noop,
+            after: $.noop
         };
         this.setParameters = function(options) {
             $.extend(this.dP, options);
