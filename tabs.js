@@ -118,7 +118,7 @@
                                         options.elOld = $thisOld;
                                         options.divOld = $($thisAOld);
                                     }
-                                    ul.trigger('tabs.beforeload', options);
+                                    ul.trigger('beforeload.' + $.tabs.nS, options);
                                     var optAjax = {
                                         type: 'post',
                                         url: opt.source,
@@ -130,7 +130,7 @@
                                                 $thisAO.find(opt.selector).html(data);
                                             else
                                                 $thisAO.html(data);
-                                            ul.trigger('tabs.afterload', options);
+                                            ul.trigger('afterload.' + $.tabs.nS, options);
                                         }
                                     };
                                     if (opt.data)

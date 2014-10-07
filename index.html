@@ -479,14 +479,14 @@
         </div>
         <!--------------------->
         <script type="text/javascript">
-            $('.load-nav-tabs-callback, .load-nav-tabs-always').on('tabs.beforeload', function(e, options) {
+            $('.load-nav-tabs-callback, .load-nav-tabs-always').on('beforeload.tabs', function(e, options) {
                 if (options.divOld)
                     options.divOld.append('<div class="preloader"></div>');
-            }).on('tabs.afterload', function(e, options) {
+            }).on('afterload.tabs', function(e, options) {
                 if (options.divOld)
                     options.divOld.find('.preloader').remove();
             });
-            $('.load-nav-tabs-always').on('tabs.beforeload', function(e, options) {
+            $('.load-nav-tabs-always').on('beforeload.tabs', function(e, options) {
                 if (options.elOld)
                     options.elOld.removeClass('tab-visited');
             });
