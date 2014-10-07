@@ -506,9 +506,7 @@
             });
             $('.nav-tabs-effect').tabs({
                 before: function(btn, div, start) {
-                    console.log(start)
-                    div.show();
-                    var height = div.height();
+                    var height = div.stop().show().height();
 
                     div.hide().parent().css('height', height);
                     //console.log(arguments);
