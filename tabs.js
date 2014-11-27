@@ -1,12 +1,12 @@
 (function($, wnd) {
     var aC = 'tab-active';
-    $.existsN = function(nabir) {
+    var existsN = function(nabir) {
         return nabir.length > 0 && nabir instanceof jQuery;
     };
     var methods = {
         init: function(options) {
             var $this = this;
-            if ($.existsN($this)) {
+            if (existsN($this)) {
                 var thisL = this.length;
                 $this.each(function(ind) {
                     var index = methods._index,
@@ -78,7 +78,7 @@
                                         methods.changeHash(temp);
                                     }
                                 }
-                                if ($.existsN(blocks)) {
+                                if (existsN(blocks)) {
                                     var i = 0;
                                     blocks.stop()[opt.effectOff](opt.durationOff, function() {
                                         if (++i === blocks.length) {
@@ -171,7 +171,7 @@
                     $.map(location.hash.split('#'), function(n, i) {
                         if (n !== '') {
                             var el = $('[data-href="#' + n + '"], [href="#' + n + '"]');
-                            if (!$.existsN(el.closest('[data-toggle]')) && !el.parent().hasClass(aC))
+                            if (!existsN(el.closest('[data-toggle]')) && !el.parent().hasClass(aC))
                                 methods.show.call(el);
                         }
                     });
@@ -188,7 +188,7 @@
                                 });
                             });
                             $.map(methods._regRefs, function(n, i) {
-                                if ($.inArray('#' + curHashArr[0], n) !== -1 && !$.existsN(methods._refs[i].first().closest('[data-toggle]')))
+                                if ($.inArray('#' + curHashArr[0], n) !== -1 && !existsN(methods._refs[i].first().closest('[data-toggle]')))
                                     methods.show.call(methods._refs[i].first());
                             });
                         }
@@ -251,7 +251,7 @@
         _start: function() {
             var hashs = [];
             $.map(methods._refs, function(n, i) {
-                var $this = $.existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
+                var $this = existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
                 hashs.push($this.data('nonStart') ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
             });
             var hashsClone = [].concat(hashs);
