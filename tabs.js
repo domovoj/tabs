@@ -328,4 +328,4 @@
     $(document).ready(function() {
         $('[data-rel="tabs"]').tabs();
     });
-})(jQuery, $(window));
+})(jQuery, jQuery(window));
