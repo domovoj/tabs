@@ -98,7 +98,7 @@
                                     _after2();
                                 }
                             }
-                            var activeP = $this.parent();
+                            var activeP = $this.closest(li);
                             li.not(activeP).removeClass(aC);
                             if (activeP.hasClass(aC) && opt.toggle)
                                 activeP.removeClass(aC);
