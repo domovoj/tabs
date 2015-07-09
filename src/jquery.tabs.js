@@ -18,7 +18,7 @@
                             tabsId = $([]);
 
                     methods._index += 1;
-                    methods._refs[index] = li.children('[href], [data-href]');
+                    methods._refs[index] = li.find('[href]:first, [data-href]:first');
                     methods._cookie[index] = opt.cookie ? opt.cookie : null;
                     methods._attrOrdata[index] = methods._refs[index].attr('href') ? 'attr' : 'data';
                     methods._regRefs[index] = [];
