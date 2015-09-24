@@ -46,7 +46,7 @@
                         if (resB !== false && !$this.hasClass('tab-disabled') && !$this.is(':disabled')) {
                             function _tabsDivT(callback) {
                                 var showBlock = $thisAO.add($('[data-id=' + $thisA + ']'));
-                                showBlock = opt.toggle && ($thisAO.is(':visible') || $('[data-id=' + $thisA + ']')) ? $([]) : showBlock;
+                                showBlock = opt.toggle && ($thisAO.is(':visible') || $('[data-id=' + $thisA + ']').is(':visible')) ? $([]) : showBlock;
                                 var blocks = tabsDiv.add(tabsId).not(showBlock);
 
                                 function _after() {
