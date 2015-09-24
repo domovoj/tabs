@@ -252,8 +252,13 @@
         _start: function () {
             var hashs = [];
             $.map(methods._refs, function (n, i) {
-                var $this = existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
-                hashs.push($this.data('nonStart') ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
+                (existsN(n.parent('.' + aC)) ?
+                    n.parent('.' + aC).children(n) :
+                    (methods._cookie[i] && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first())
+                ).each(function () {
+                        var $this = $(this);
+                        hashs.push($this.data('nonStart') ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
+                    });
             });
             var hashsClone = [].concat(hashs);
             if (location.hash) {
