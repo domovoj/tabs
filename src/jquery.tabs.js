@@ -1,21 +1,21 @@
-(function($, wnd) {
+(function ($, wnd) {
     var aC = 'tab-active';
-    var existsN = function(nabir) {
+    var existsN = function (nabir) {
         return nabir.length > 0 && nabir instanceof jQuery;
     };
     var methods = {
-        init: function(options) {
+        init: function (options) {
             var $this = this;
             if (existsN($this)) {
                 var thisL = this.length;
-                $this.each(function(ind) {
+                $this.each(function (ind) {
                     var index = methods._index,
-                            ul = $(this),
-                            li = ul.children(),
-                            data = ul.data(),
-                            opt = $.extend({}, $.tabs.dP, options, data),
-                            tabsDiv = $([]),
-                            tabsId = $([]);
+                        ul = $(this),
+                        li = ul.children(),
+                        data = ul.data(),
+                        opt = $.extend({}, $.tabs.dP, options, data),
+                        tabsDiv = $([]),
+                        tabsId = $([]);
 
                     methods._index += 1;
                     methods._refs[index] = li.find('[href]:first, [data-href]:first');
@@ -23,22 +23,22 @@
                     methods._attrOrdata[index] = methods._refs[index].attr('href') ? 'attr' : 'data';
                     methods._regRefs[index] = [];
 
-                    methods._refs[index].each(function() {
+                    methods._refs[index].each(function () {
                         var tHref = $(this)[methods._attrOrdata[index]]('href');
                         tabsDiv = tabsDiv.add($(tHref));
                         tabsId = tabsId.add('[data-id=' + tHref + ']');
                         methods._regRefs[index].push(tHref);
                     });
-                    methods._refs[index].removeData('start').off('click.' + $.tabs.nS).on('click.' + $.tabs.nS, function(e) {
+                    methods._refs[index].removeData('start').off('click.' + $.tabs.nS).on('click.' + $.tabs.nS, function (e) {
                         e.preventDefault();
                         var $this = $(this).data('start', true),
-                                condStart = e.start,
-                                $thisA = $this[methods._attrOrdata[index]]('href'),
-                                $thisOld = li.filter('.' + aC).children(),
-                                $thisAOld = $thisOld[methods._attrOrdata[index]]('href'),
-                                $thisAOld = $thisAOld === $thisA ? null : $thisAOld,
-                                $thisAO = $($thisA),
-                                resB = true;
+                            condStart = e.start,
+                            $thisA = $this[methods._attrOrdata[index]]('href'),
+                            $thisOld = li.filter('.' + aC).children(),
+                            $thisAOld = $thisOld[methods._attrOrdata[index]]('href'),
+                            $thisAOld = $thisAOld === $thisA ? null : $thisAOld,
+                            $thisAO = $($thisA),
+                            resB = true;
                         $.extend(opt, $this.data());
 
                         if (opt.before)
@@ -46,26 +46,28 @@
                         if (resB !== false && !$this.hasClass('tab-disabled') && !$this.is(':disabled')) {
                             function _tabsDivT(callback) {
                                 var showBlock = $thisAO.add($('[data-id=' + $thisA + ']'));
-                                showBlock = opt.toggle && $thisAO.is(':visible') ? $([]) : showBlock;
+                                showBlock = opt.toggle && ($thisAO.is(':visible') || $('[data-id=' + $thisA + ']')) ? $([]) : showBlock;
                                 var blocks = tabsDiv.add(tabsId).not(showBlock);
+
                                 function _after() {
                                     if (opt.after)
                                         eval(opt.after).call(ul, $this, $thisAO.add('[data-id=' + $thisA + ']'), resB);
                                     if (callback)
                                         callback();
                                 }
+
                                 function _after2() {
                                     var wLH = window.location.hash;
                                     if (!condStart && ($thisAOld || opt.toggle)) {
                                         var temp = wLH,
-                                                changeHash = false;
+                                            changeHash = false;
                                         if (methods.hashsArr)
-                                            $.map(methods.hashsArr, function(n) {
+                                            $.map(methods.hashsArr, function (n) {
                                                 if ($.inArray('#' + n, methods._regRefs[index]) !== -1)
                                                     changeHash = true;
                                             });
                                         if (changeHash || methods._attrOrdata[index] === 'attr') {
-                                            $.map(methods._regRefs[index], function(n) {
+                                            $.map(methods._regRefs[index], function (n) {
                                                 temp = temp.replace(new RegExp(n + '($|\b)', 'ig'), '').replace(new RegExp(n + '#', 'ig'), '#');
                                             });
                                             if (opt.toggle && !$thisAO.is(':visible')) {
@@ -78,12 +80,13 @@
                                         methods.changeHash(temp);
                                     }
                                 }
+
                                 if (existsN(blocks)) {
                                     var i = 0;
-                                    blocks.stop()[opt.effectOff](opt.durationOff, function() {
+                                    blocks.stop()[opt.effectOff](opt.durationOff, function () {
                                         if (++i === blocks.length) {
                                             if (!$thisAO.is(':visible') || opt.elchange)
-                                                showBlock[opt.effectOn](opt.durationOn, function() {
+                                                showBlock[opt.effectOn](opt.durationOn, function () {
                                                     _after();
                                                 });
                                             else
@@ -98,6 +101,7 @@
                                     _after2();
                                 }
                             }
+
                             var activeP = $this.closest(li);
                             li.not(activeP).removeClass(aC);
                             if (activeP.hasClass(aC) && opt.toggle)
@@ -122,8 +126,8 @@
                                     var optAjax = {
                                         type: 'post',
                                         url: opt.source,
-                                        success: function(data) {
-                                            _tabsDivT(function() {
+                                        success: function (data) {
+                                            _tabsDivT(function () {
                                                 methods._refs[index].removeClass('tab-disabled').removeAttr('disabled');
                                             });
                                             if (opt.selector)
@@ -160,15 +164,15 @@
                     if (thisL - 1 === ind)
                         methods._start();
                 });
-                wnd.off('hashchange.' + $.tabs.nS).on('hashchange.' + $.tabs.nS, function(e) {
+                wnd.off('hashchange.' + $.tabs.nS).on('hashchange.' + $.tabs.nS, function (e) {
                     var curHash = methods.curHash,
-                            curTop = methods.curTop;
+                        curTop = methods.curTop;
 
                     methods.curHash = location.hash;
                     methods.curTop = wnd.scrollTop();
 
                     e.preventDefault();
-                    $.map(location.hash.split('#'), function(n, i) {
+                    $.map(location.hash.split('#'), function (n, i) {
                         if (n !== '') {
                             var el = $('[data-href="#' + n + '"], [href="#' + n + '"]');
                             if (!existsN(el.closest('[data-toggle]')) && !el.parent().hasClass(aC))
@@ -177,58 +181,55 @@
                     });
                     if (curHash) {
                         var curHashArr = curHash.split('#'),
-                                curHashArr2 = methods.curHash.split('#');
+                            curHashArr2 = methods.curHash.split('#');
                         if (curHashArr.length !== curHashArr2.length && curHashArr.length !== 0 && curHashArr2.length !== 0) {
-                            $.map([].concat(curHashArr), function(n, i) {
-                                $.map([].concat(curHashArr2), function(m, j) {
+                            $.map([].concat(curHashArr), function (n, i) {
+                                $.map([].concat(curHashArr2), function (m, j) {
                                     if (n === m) {
                                         curHashArr2.splice(j, 1);
                                         curHashArr.splice(j, 1);
                                     }
                                 });
                             });
-                            $.map(methods._regRefs, function(n, i) {
+                            $.map(methods._regRefs, function (n, i) {
                                 if ($.inArray('#' + curHashArr[0], n) !== -1 && !existsN(methods._refs[i].first().closest('[data-toggle]')))
                                     methods.show.call(methods._refs[i].first());
                             });
                         }
                     }
                     if (curTop && curTop !== methods.curTop)
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $('html, body').scrollTop(curTop);
                         }, 10);
-                }).off('scroll.' + $.tabs.nS).on('scroll.' + $.tabs.nS, function(e) {
+                }).off('scroll.' + $.tabs.nS).on('scroll.' + $.tabs.nS, function (e) {
                     methods.curTop = wnd.scrollTop();
                 });
             }
             return $this;
         },
-        show: function() {
+        show: function () {
             this.trigger('click.' + $.tabs.nS);
         },
-        setCookie: function(name, value, expires, path, domain, secure) {
+        setCookie: function (name, value, expires, path, domain, secure) {
             var today = new Date();
             today.setTime(today.getTime());
-            if (expires)
-            {
+            if (expires) {
                 expires = expires * 1000 * 60 * 60 * 24;
             }
             var expiresDate = new Date(today.getTime() + (expires));
             document.cookie = name + "=" + encodeURIComponent(value) +
-                    ((expires) ? ";expires=" + expiresDate.toGMTString() : "") + ((path) ? ";path=" + path : "") +
-                    ((domain) ? ";domain=" + domain : "") +
-                    ((secure) ? ";secure" : "");
+            ((expires) ? ";expires=" + expiresDate.toGMTString() : "") + ((path) ? ";path=" + path : "") +
+            ((domain) ? ";domain=" + domain : "") +
+            ((secure) ? ";secure" : "");
         },
-        getCookie: function(c_name)
-        {
+        getCookie: function (c_name) {
             var c_value = document.cookie,
-                    c_start = c_value.indexOf(" " + c_name + "=");
+                c_start = c_value.indexOf(" " + c_name + "=");
             if (c_start === -1)
                 c_start = c_value.indexOf(c_name + "=");
             if (c_start === -1)
                 c_value = null;
-            else
-            {
+            else {
                 c_start = c_value.indexOf("=", c_start) + 1;
                 var c_end = c_value.indexOf(";", c_start);
                 if (c_end === -1)
@@ -237,7 +238,7 @@
             }
             return c_value;
         },
-        changeHash: function(temp) {
+        changeHash: function (temp) {
             methods.top = wnd.scrollTop();
             if (temp)
                 window.location.hash = temp;
@@ -248,24 +249,24 @@
         _regRefs: [],
         _attrOrdata: [],
         _cookie: [],
-        _start: function() {
+        _start: function () {
             var hashs = [];
-            $.map(methods._refs, function(n, i) {
+            $.map(methods._refs, function (n, i) {
                 var $this = existsN(n.parent('.' + aC)) ? n.parent('.' + aC).children(n) : (methods._cookie[i] && methods.getCookie(methods._cookie[i]) ? $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + methods.getCookie(methods._cookie[i]) + ']') : n.first());
                 hashs.push($this.data('nonStart') ? null : $this[$this.attr('href') ? 'attr' : 'data']('href'));
             });
             var hashsClone = [].concat(hashs);
             if (location.hash) {
                 var hashsArr = location.hash.split('#');
-                $.map(hashsArr, function(n, i) {
-                    $.map(hashsClone, function(m, j) {
+                $.map(hashsArr, function (n, i) {
+                    $.map(hashsClone, function (m, j) {
                         if ($.inArray('#' + n, methods._regRefs[j]) !== -1)
                             hashs.splice(j, 1, '#' + n);
                     });
                 });
             }
             if (hashsArr) {
-                $.map(hashsArr, function(n, i) {
+                $.map(hashsArr, function (n, i) {
                     if (n === '')
                         hashsArr.splice(i, 1);
                 });
@@ -273,7 +274,7 @@
             }
             methods.hashs = hashs;
 
-            $.map(hashs, function(n, i) {
+            $.map(hashs, function (n, i) {
                 var tab = $('[' + (methods._attrOrdata[i] === 'attr' ? 'href' : 'data-href') + '=' + n + ']');
                 if (!tab.data('start'))
                     tab.trigger({
@@ -283,22 +284,22 @@
             });
         }
     };
-    $.fn.tabs = function(method) {
+    $.fn.tabs = function (method) {
         if (methods[method]) {
-            return methods[ method ].apply(this, Array.prototype.slice.call(arguments, 1));
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + method + ' does not exist on $.tabs');
         }
     };
-    $.tabsInit = function() {
+    $.tabsInit = function () {
         this.nS = 'tabs';
-        this.method = function(m) {
+        this.method = function (m) {
             if (!/_/.test(m))
                 return methods[m];
         };
-        this.methods = function() {
+        this.methods = function () {
             var newM = {};
             for (var i in methods) {
                 if (!/_/.test(i))
@@ -320,12 +321,12 @@
             before: $.noop,
             after: $.noop
         };
-        this.setParameters = function(options) {
+        this.setParameters = function (options) {
             $.extend(this.dP, options);
         };
     };
     $.tabs = new $.tabsInit();
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('[data-rel="tabs"]').tabs();
     });
 })(jQuery, jQuery(window));
